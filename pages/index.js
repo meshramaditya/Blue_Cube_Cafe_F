@@ -24,19 +24,20 @@ export default function Login(){
   }
 
   return (
-    <div className="container">
-      <div className="login-card">
-        <h2>Blue Cube 🍵 — Admin Login 🧲</h2>
-        <p className="small-muted">Enter ID and password to manage orders and billing</p>
+    <div className="auth-shell">
+      <div className="login-card auth-card">
+        <div className="eyebrow">Blue Cube Access</div>
+        <h2>Admin Login</h2>
+        <p className="small-muted">Enter ID and password to manage orders, billing, and live transaction flow.</p>
         <form onSubmit={handleSubmit}>
           <label className="small-muted">ID</label>
           <input className="input" value={user} onChange={e=>setUser(e.target.value)} />
           <label className="small-muted">Password</label>
           <input className="input" type="password" value={pass} onChange={e=>setPass(e.target.value)} />
           <div style={{height:12}} />
-          <button className="btn" type="submit">Sign in</button>
+          <button className="btn btn-primary full" type="submit">Sign in</button>
         </form>
-        {error && <p style={{color:'crimson',marginTop:12}}>{error}</p>}
+        {error && <p className="error-text">{error}</p>}
         <div style={{marginTop:12}} className="small-muted">Default: <strong>admin</strong> / <strong>bluecube</strong></div>
       </div>
     </div>

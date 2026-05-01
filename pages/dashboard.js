@@ -200,12 +200,18 @@ export default function Dashboard(){
   return (
     <Layout>
       <section className="dashboard-wrap">
-        <header className="dash-top">
-          <div>
+        <header className="dash-top hero-card card">
+          <div className="hero-copy">
+            <div className="eyebrow">Live operations</div>
             <h2>Blue Cube Administrative Dashboard</h2>
-            <p className="small-muted">Daily cafe operations, order flow, and billing performance.</p>
+            <p className="small-muted">Daily cafe operations, order flow, billing performance, and transaction tracking in one polished workspace.</p>
+            <div className="hero-pills">
+              <span className="hero-pill">{orders.length} active orders</span>
+              <span className="hero-pill">{transactions.length} transactions</span>
+              <span className="hero-pill hero-pill-accent">{money(statSales)} sales</span>
+            </div>
           </div>
-          <button className="btn" onClick={() => setTab('pos')}>+ New Order</button>
+          <button className="btn btn-primary" onClick={() => setTab('pos')}>+ New Order</button>
         </header>
 
         <div className="stats-grid">
@@ -215,7 +221,7 @@ export default function Dashboard(){
           <StatCard title="Avg Sales Per Shift" value={money(statSales / Math.max(1, 30))} sub="Last 30 days" trend="+8%" />
         </div>
 
-        <div className="tab-header">
+        <div className="tab-header tab-shell">
           <button onClick={() => setTab('pos')} className={`tab-btn ${tab === 'pos' ? 'active' : ''}`}>POS</button>
           <button onClick={() => setTab('orders')} className={`tab-btn ${tab === 'orders' ? 'active' : ''}`}>Orders</button>
           <button onClick={() => setTab('billing')} className={`tab-btn ${tab === 'billing' ? 'active' : ''}`}>Billing</button>
@@ -225,9 +231,12 @@ export default function Dashboard(){
 
         {tab === 'pos' && (
           <section className="pos-grid">
-            <div className="menu-panel card">
+            <div className="menu-panel card section-card">
               <div className="panel-head">
-                <h3>Menu</h3>
+                <div>
+                  <div className="eyebrow">Build order</div>
+                  <h3>Menu</h3>
+                </div>
                 <input
                   className="input"
                   placeholder="Search menu or category"
@@ -247,7 +256,8 @@ export default function Dashboard(){
               </div>
             </div>
 
-            <div className="billing-panel card">
+            <div className="billing-panel card section-card">
+              <div className="eyebrow">Current cart</div>
               <h3>Order Details</h3>
               {cart.length === 0 && <p className="small-muted">No items yet. Use Add Order from menu.</p>}
               <div className="billing-lines">
@@ -275,10 +285,13 @@ export default function Dashboard(){
         )}
 
         {tab === 'orders' && (
-          <section className="card">
+          <section className="card section-card">
             <div className="panel-head row-between">
-              <h3>Open Orders</h3>
-              <button className="btn" onClick={() => setTab('pos')}>+ New Order</button>
+              <div>
+                <div className="eyebrow">Operational view</div>
+                <h3>Open Orders</h3>
+              </div>
+              <button className="btn btn-primary" onClick={() => setTab('pos')}>+ New Order</button>
             </div>
             <div className="table-wrap">
               <table className="orders-table">
@@ -312,7 +325,8 @@ export default function Dashboard(){
         )}
 
         {tab === 'billing' && (
-          <section className="card billing-view">
+          <section className="card billing-view section-card">
+            <div className="eyebrow">Payments</div>
             <h3>Billing Section</h3>
             <p className="small-muted">Live summary of current cart and latest paid transactions.</p>
             <div className="billing-split">
@@ -339,7 +353,8 @@ export default function Dashboard(){
         )}
 
         {tab === 'transactions' && (
-          <section className="card">
+          <section className="card section-card">
+            <div className="eyebrow">Finance</div>
             <h3>Transactions</h3>
             {transactions.length === 0 && <p className="small-muted">No transactions yet.</p>}
             <div className="table-wrap">
@@ -374,7 +389,8 @@ export default function Dashboard(){
         )}
 
         {tab === 'analytics' && (
-          <section className="card">
+          <section className="card section-card">
+            <div className="eyebrow">Performance</div>
             <h3>Analytics (Interactive)</h3>
             <p className="small-muted">Last 7 days sales trend from transaction data.</p>
             <AnalyticsChart transactions={transactions} />
